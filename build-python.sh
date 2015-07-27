@@ -29,7 +29,7 @@ PYTHON3_TEMPDIR=/tmp/build-python3-${PYTHON3_VERSION}
 #export CC=/usr/bin/gcc44
 
 #Set LD_LIBRARY_PATH to local lib directory
-export LD_LIBRARY_PATH=${GCC_PREFIX}/lib
+##export LD_LIBRARY_PATH=${GCC_PREFIX}/lib
 
 cleartemp() {
   rm -r -f ${PYTHON2_TEMPDIR}
@@ -51,7 +51,7 @@ build_dependencies() {
 
   cd ${TEMPDIR}
   extract_gzip ${HOSTDIR}/${OPENSSL_FILE}
-  extract_gzip ${HOSTDIR}/${ZLIB_FILE} 
+  extract_gzip ${HOSTDIR}/${ZLIB_FILE}
   extract_gzip ${HOSTDIR}/${READLINE_FILE}
   extract_gzip ${HOSTDIR}/${BZIP_FILE}
   extract_gzip ${HOSTDIR}/${XZ_FILE}
@@ -82,7 +82,7 @@ build_dependencies() {
   make install
 
   #Download and Build readline
-  cd ${TEMPDIR} 
+  cd ${TEMPDIR}
   cd readline-${READLINE_VERSION}/
   ./configure --prefix=$IPATH
   make
@@ -135,7 +135,7 @@ install_setuptools() {
   IPATH=$2
 
   SAVED_PATH=${PATH}
-  export PATH=${IPATH}/bin:${PATH} 
+  export PATH=${IPATH}/bin:${PATH}
   #install setuptools, pip, virtualenv
   cd ${TEMPDIR}
   cd setuptools-${SETUPTOOLS_VERSION}
@@ -157,15 +157,15 @@ build_python2() {
   cd ${TEMPDIR}
   extract_gzip ${HOSTDIR}/${PYTHON2_FILE}
   cd Python-${PYTHON2_VERSION}
-  
+
   ./configure --enable-shared --prefix=${IPATH}
-  
+
   make
   if [ $? -ne 0 ]; then
     echo "failed make for build_python2"
     exit 1
   fi
-  
+
   make install
   if [ $? -ne 0 ]; then
     echo "make install failed for build_python2"
@@ -185,32 +185,32 @@ build_python3() {
   IPATH=$2
   SAVED_LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${IPATH}/lib
-  
+
   cd ${TEMPDIR}
   extract_gzip ${HOSTDIR}/${PYTHON3_FILE}
   cd Python-${PYTHON3_VERSION}
-  
+
   ./configure --enable-shared --prefix=${IPATH}
-  
+
   make
   if [ $? -ne 0 ]; then
     echo "failed make for build_python3"
     exit 1
   fi
-  
+
   make install
   if [ $? -ne 0 ]; then
     echo "make install failed for build_python3"
     exit 1
   fi
-  
+
   #symbolic link python3 to python
   cd ${IPATH}/bin
   ln -s python3 python
 
   #install setuptools
   install_setuptools ${TEMPDIR} ${IPATH}
-  
+
   #restore LD_LIBRARY_PATH
   export LD_LIBRARY_PATH=${SAVED_LD_LIBRARY_PATH}
 }

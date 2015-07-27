@@ -2,13 +2,14 @@
 
 #Global Config
 
-HOSTDIR=/vagrant
+HOSTDIR=/export/Development/centos5-builders
 INSTPREFIX=/opt
 TEMPDIR=/tmp
 
+##devtoolset-3
 #GCC
-GCC_VERSION=4.9.2
-GCC_PREFIX=/opt/gcc-${GCC_VERSION}
+GCC_VERSION=4.9.1
+GCC_PREFIX=/opt/rh/devtoolset-3/root/usr
 GLIBC_VERSION=`ldd --version | grep "ldd" | awk '{ print $4 }'`
 
 #bzip
@@ -29,7 +30,7 @@ NGINX_URL=http://nginx.org/download/${NGINX_FILE}
 NGINX_PREFIX=${INSTPREFIX}/nginx-${NGINX_VERSION}
 
 #OpenSSL
-OPENSSL_VERSION=1.0.2a
+OPENSSL_VERSION=1.0.2d
 OPENSSL_FILE=openssl-${OPENSSL_VERSION}.tar.gz
 OPENSSL_URL=https://www.openssl.org/source/${OPENSSL_FILE}
 
@@ -39,7 +40,7 @@ PCRE_FILE=pcre-${PCRE_VERSION}.tar.bz2
 PCRE_URL=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/${PCRE_FILE}
 
 #python 2
-PYTHON2_VERSION=2.7.9
+PYTHON2_VERSION=2.7.10
 PYTHON2_FILE=Python-${PYTHON2_VERSION}.tgz
 PYTHON2_URL=http://python.org/ftp/python/${PYTHON2_VERSION}/${PYTHON2_FILE}
 PYTHON2_PREFIX=/opt/python-${PYTHON2_VERSION}
@@ -56,12 +57,12 @@ READLINE_FILE=readline-${READLINE_VERSION}.tar.gz
 READLINE_URL=http://ftp.gnu.org/gnu/readline/${READLINE_FILE}
 
 #setuptools (for python)
-SETUPTOOLS_VERSION=15.2
+SETUPTOOLS_VERSION=18.0.1
 SETUPTOOLS_FILE=setuptools-${SETUPTOOLS_VERSION}.tar.gz
 SETUPTOOLS_URL=https://pypi.python.org/packages/source/s/setuptools/${SETUPTOOLS_FILE}
 
 #sqlite (for python)
-SQLITE_VERSION=3081001
+SQLITE_VERSION=3081002
 SQLITE_FILE=sqlite-autoconf-${SQLITE_VERSION}.tar.gz
 SQLITE_URL=https://sqlite.org/2015/${SQLITE_FILE}
 
